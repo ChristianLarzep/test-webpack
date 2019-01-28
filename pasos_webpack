@@ -1,0 +1,90 @@
+Pasos webpack
+
+https://www.youtube.com/watch?v=8abt7kqHWoA
+https://github.com/FaztWeb/webpack-course
+
+Tener nodejs instalado
+crear una carpeta para el proyecto: mkdir mi_proyecto+
+
+Instalar webpack en el ordenador
+Ejecutar: npm install webpack -g
+o si se tiene yarn: yarn add webpack -g
+
+Generar package.json en el proyecto
+Entrar en la carpeta del proyecto y ejecutar: npm init --yes
+
+Instalar webpack en el proyecto:
+npm install webpack --save-dev
+o yarn add webpack --save-dev
+
+Crear un archivo index.html con la estructura normal de un html y con una etiqueta script con src='/dist/bundle.js'
+
+Crear una carpeta llamada src y dentro otras 2 llamadas js y css 
+Crear un archivo app.js y ponerlo en la carpeta js
+crear un archivo .css y ponerlo en la carpeta css
+
+Para que webpak pueda procesar archivos que no sean .js hay que instalar los leaders necesarios, en el caso de archivos .css el loader se instala:
+npm install style-loader css-loader -D
+La -D es para indicar que sera dependencia en ambiente de desarrollo
+
+Crear un archivo llamado webpack.config.js y agregar:
+
+module.exports = {
+  mode: "development",
+  entry: "./src/js/app.js",
+  output: {
+    path: __dirname + "/dist",
+    filename: "bundle.js"
+  },
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        loader: "style-loader!css-loader"
+      },
+      {
+        test: /\.js$/,
+        loader: "babel-loader",
+        exclude: /node_modules/,
+        query: {
+          presets: ["es2015"]
+        }
+      }
+    ]
+  }
+}
+
+Instalar servidor de desarrollo de webpack
+npm install webpack-dev-server -g
+npm install webpack-dev-server
+
+instalar npm-cli
+npm install webpack-cli -D   ?????
+sudo apt install webpack
+
+Ejecutar: webpack  si se quiere crear bundle.js sin el servidor
+
+Dentro del archivo package.json agregar en scripts:
+
+  "scripts": {
+    "dev": "webpack-dev-server --entry ./src/js/app.js --output-filename ./dist/bundle.js"
+  },
+
+instalar babel para transpilar archivos .js a vanilla js
+
+Levantar el servidor con: npm run dev
+http://localhost:8080/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
